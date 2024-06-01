@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  app:
+    tty: true
+    build:
+      context: .
+      dockerfile: ./app/Dockerfile
+    environment:
+      FIRESTORE_EMULATOR_HOST: "firebase:8080"
+    volumes:
+      - ./:/workspace
+    working_dir: /workspace
+
+  firebase:
+    build:
+      context: .
+      dockerfile: ./firebase/Dockerfile
+    ports:
+      - 4000:4000
+      - 8080:8080
+    volumes:
+      - ./firebase/.firebaserc:/firebase/.firebaserc
+      - ./firebase/firebase.json:/firebase/firebase.json
+    tty: true
+    working_dir: /firebase
+    command: firebase emulators:start
