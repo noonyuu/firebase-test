@@ -1,4 +1,4 @@
-version: '3.9'
+version: "3.9"
 
 services:
   app:
@@ -19,9 +19,11 @@ services:
     ports:
       - 4000:4000
       - 8080:8080
+      - 5001:5001
     volumes:
       - ./firebase/.firebaserc:/firebase/.firebaserc
       - ./firebase/firebase.json:/firebase/firebase.json
+      - ./firebase/functions:/firebase/functions
     tty: true
     working_dir: /firebase
     command: firebase emulators:start
